@@ -1,6 +1,7 @@
 import logging
 
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import carts_collection
@@ -9,6 +10,9 @@ from routes import cart
 logger = logging.getLogger("cart-service")
 
 app = FastAPI(title="Sports Store — Cart Service")
+
+
+Instrumentator().instrument(app).expose(app)
 
 app.add_middleware(
     CORSMiddleware,
